@@ -41,7 +41,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
-        private AudioSource m_AudioSource;
+        private bool m_Jetpack;
+        private AudioSource m_AudioSource; 
+
+
 
         // Use this for initialization
         private void Start()
@@ -56,6 +59,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            
+
         }
 
 
@@ -82,6 +87,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
         }
 
 
@@ -109,6 +115,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
 
+         
+
 
             if (m_CharacterController.isGrounded)
             {
@@ -132,9 +140,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
+
+
         }
 
-
+        
         private void PlayJumpSound()
         {
             m_AudioSource.clip = m_JumpSound;
@@ -209,6 +219,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
+
+      
 
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
